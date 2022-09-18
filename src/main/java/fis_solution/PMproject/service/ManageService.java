@@ -321,7 +321,7 @@ public class ManageService {
     }
 
     // 등록된 과 리스트
-    public List<Office> findOfficewithFile() {
+    public List<Office> findOfficeWithFile() {
         List<Office> allwithFile = officeRepository.findAllwithFile();
 
         return allwithFile;

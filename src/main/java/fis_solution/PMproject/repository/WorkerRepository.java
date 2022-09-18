@@ -53,7 +53,7 @@ public class WorkerRepository {
         em.remove(worker);
     }
 
-    public Worker findnickname(String nickname){
+    public Worker findByNickname(String nickname){
         return em.createQuery("select w from Worker w where w.nickname = :nickname", Worker.class)
                 .setParameter("nickname", nickname)
                 .getSingleResult();

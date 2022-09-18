@@ -23,6 +23,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @RestController
@@ -143,20 +144,20 @@ public class ManageApiController {
 //                if(allFile.get(j).getF_scan().equals(F_construct.YES)) {
 //                    scan[i] += Integer.valueOf(allFile.get(j).getF_volumeamount());
 //                }
-                if(allOffice.get(i).getO_code() == allFile.get(j).getOffice().getO_code()) {
-                    tot[i] += Integer.valueOf(allFile.get(j).getF_volumeamount());
+                if(Objects.equals(allOffice.get(i).getO_code(), allFile.get(j).getOffice().getO_code())) {
+                    tot[i] += Integer.parseInt(allFile.get(j).getF_volumeamount());
                 }
             }
         }
 
         for(int i = 0; i < allOffice.size(); i++) {
             for(int j = 0; j< allFile.size(); j++) {
-                if(allOffice.get(i).getO_code() == allFile.get(j).getOffice().getO_code()) {
+                if(Objects.equals(allOffice.get(i).getO_code(), allFile.get(j).getOffice().getO_code())) {
                     if(allFile.get(j).getF_db().equals(F_construct.YES)) {
-                        db[i] += Integer.valueOf(allFile.get(j).getF_volumeamount());
+                        db[i] += Integer.parseInt(allFile.get(j).getF_volumeamount());
                     }
                     if(allFile.get(j).getF_scan().equals(F_construct.YES)) {
-                        scan[i] += Integer.valueOf(allFile.get(j).getF_volumeamount());
+                        scan[i] += Integer.parseInt(allFile.get(j).getF_volumeamount());
                     }
                 }
             }
@@ -176,17 +177,17 @@ public class ManageApiController {
 
         for(int i = 0; i < office.getFileList().size(); i++) {
             if(office.getFileList().get(i).getF_process().equals(F_process.CHECK)) {
-                process[0] += Integer.valueOf(office.getFileList().get(i).getF_volumeamount());
+                process[0] += Integer.parseInt(office.getFileList().get(i).getF_volumeamount());
             } else if(office.getFileList().get(i).getF_process().equals(F_process.LOADING)) {
-                process[0] += Integer.valueOf(office.getFileList().get(i).getF_volumeamount());
-                process[1] += Integer.valueOf(office.getFileList().get(i).getF_volumeamount());
+                process[0] += Integer.parseInt(office.getFileList().get(i).getF_volumeamount());
+                process[1] += Integer.parseInt(office.getFileList().get(i).getF_volumeamount());
             } else if(office.getFileList().get(i).getF_process().equals(F_process.UPLOAD)) {
-                process[0] += Integer.valueOf(office.getFileList().get(i).getF_volumeamount());
-                process[1] += Integer.valueOf(office.getFileList().get(i).getF_volumeamount());
+                process[0] += Integer.parseInt(office.getFileList().get(i).getF_volumeamount());
+                process[1] += Integer.parseInt(office.getFileList().get(i).getF_volumeamount());
             } else if(office.getFileList().get(i).getF_process().equals(F_process.UPLOADED)) {
-                process[0] += Integer.valueOf(office.getFileList().get(i).getF_volumeamount());
-                process[1] += Integer.valueOf(office.getFileList().get(i).getF_volumeamount());
-                process[2] += Integer.valueOf(office.getFileList().get(i).getF_volumeamount());
+                process[0] += Integer.parseInt(office.getFileList().get(i).getF_volumeamount());
+                process[1] += Integer.parseInt(office.getFileList().get(i).getF_volumeamount());
+                process[2] += Integer.parseInt(office.getFileList().get(i).getF_volumeamount());
             }
         }
 
@@ -274,9 +275,6 @@ public class ManageApiController {
 
 
     // ===== 철별 이력 조회 ===== //
-    // 이게 씨ㅡㅡㅡ발 맞냐공,,, ㅋ;;
-
-    // workerput과 workercheck에서 오류남 ㅅㅂㅅㅂㅅㅂㅅㅂ
     @GetMapping("manage/workplace/record")
     public Result searchHistoryByFile(HttpServletRequest request) {
         try {
